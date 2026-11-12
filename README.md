@@ -1,3 +1,6 @@
+[![npm version](https://img.shields.io/npm/v/mcp-n8n-voice-orchestrator.svg)](https://www.npmjs.com/package/mcp-n8n-voice-orchestrator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 # mcp-n8n-voice-orchestrator
 
 A lightweight, deterministic **Model Context Protocol (MCP)** bridge and reference architecture designed to connect **Claude (Sonnet/Haiku/Opus)** and **Claude Code** directly to self-hosted **n8n** instances, **Vapi.ai** voice pipelines, **Twilio**, and **WhatsApp Cloud API**.
@@ -14,10 +17,11 @@ While n8n provides general workflow nodes and Anthropic's MCP standardizes tool-
 - `/state-machine`: Supabase / PostgreSQL idempotency tables and row-level locking schemas to prevent duplicate outbound dispatches.
 
 ## Quick Start
-
+ 
 ```bash
 git clone [https://github.com/Code-With-Vishal/mcp-n8n-voice-orchestrator.git](https://github.com/Code-With-Vishal/mcp-n8n-voice-orchestrator.git)
 cd mcp-n8n-voice-orchestrator
 npm install
 cp .env.example .env
 npm run build
+ 
