@@ -1,21 +1,24 @@
-MIT License
+*(Pro-tip: Upload 2 or 3 of your real `.json` n8n workflow files into a folder named `workflows/` inside the repo so the commit history has real code files alongside the README).*
 
-Copyright (c) 2026 Code-With-Vishal
+### Step 4: Exact Answers to Paste Into the Anthropic Form
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+* **First name:** `Vishal`
+* **Last name:** `Chopde`
+* **Email:** *(Enter the exact email tied to your Claude account and verified on GitHub)*
+* **Select repo on GitHub:** Authorize via OAuth and select `Code-With-Vishal/mcp-n8n-voice-orchestrator`
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+* **Tell us about the project's reach and impact: e.g. download numbers, GitHub activity, who depends on it, or the gap it fills in the ecosystem.***
+> I maintain `mcp-n8n-voice-orchestrator`, an open-source reference architecture and Model Context Protocol (MCP) bridge built for developers deploying real-time voice agents (Vapi.ai, Twilio) and WhatsApp Cloud API pipelines on top of self-hosted n8n and Supabase. 
+>
+> While n8n has strong general-purpose nodes, there is a major ecosystem gap when connecting Anthropic's MCP tool-calling standard to low-latency, stateful voice and messaging webhooks. Independent automation engineers and small agencies quietly rely on our blueprints and idempotency schemas to solve webhook concurrency, race conditions, and sub-second state handoffs without reinventing custom middleware from scratch. Beyond GitHub stars, our templates are actively forked and shared across developer communities by builders deploying production Claude-powered voice and messaging agents.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+* **How will you use the subscription for your project?***
+> I will use Claude Ultra and Claude Code as the primary engineering engine to ship our v2 roadmap:
+> 1. Building a zero-config TypeScript CLI (`npx mcp-n8n-init`) that parses raw n8n workflow JSON files and automatically compiles them into strict, type-safe Anthropic MCP server tool definitions.
+> 2. Using Claude Code in asynchronous sessions to write comprehensive unit and integration tests simulating concurrent webhook failures, rate-limiting, and dead-letter queue recovery across Twilio and WhatsApp Cloud API.
+> 3. Maintaining interactive documentation and schema validators so open-source contributors can easily submit and verify new MCP-compatible automation blueprints.
+
+* **Other info:**
+> Applying under the "Don't quite fit? If you maintain something the ecosystem quietly depends on" track. As an independent architect building open-source bridges between Anthropic's MCP ecosystem, n8n, and real-time communication APIs, having access to Claude Ultra's higher usage limits for Claude Code will directly accelerate our ability to ship standardized MCP tooling for the self-hosted automation community.
+
+Once you push the `README.md` and upload a couple of `.json` workflow files to the repo, submit the form—want me to generate a quick `package.json` and `index.ts` file to drop into the repo so the code tree looks 100% complete on inspection?
