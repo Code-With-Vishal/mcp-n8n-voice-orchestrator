@@ -1,0 +1,41 @@
+{
+  "name": "Vapi Voice to WhatsApp Cloud Idempotent Recovery",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-missed-call-recovery",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-entry",
+      "name": "MCP Webhook Ingress",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO webhook_locks (idempotency_key, channel, created_at) VALUES ($1, $2, NOW()) ON CONFLICT (idempotency_key) DO NOTHING RETURNING *;"
+      },
+      "id": "supabase-idempotency-lock",
+      "name": "Supabase State Lock",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [480, 300]
+    }
+  ],
+  "connections": {
+    "MCP Webhook Ingress": {
+      "main": [
+        [
+          {
+            "node": "Supabase State Lock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
