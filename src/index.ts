@@ -22,7 +22,7 @@ const TriggerWorkflowSchema = z.object({
 const server = new Server(
   {
     name: "mcp-n8n-voice-orchestrator",
-    version: "1.2.0",
+    version: "1.2.1",
   },
   {
     capabilities: {

@@ -1,5 +1,5 @@
 {
-  "name": "Vapi Voice to WhatsApp Cloud Idempotent Recovery",
+  "name": "Vapi Missed Call Recovery (Idempotent)",
   "nodes": [
     {
       "parameters": {
@@ -8,7 +8,7 @@
         "responseMode": "onReceived"
       },
       "id": "webhook-entry",
-      "name": "MCP Webhook Ingress",
+      "name": "Webhook Ingress",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [250, 300]
@@ -16,25 +16,63 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO webhook_locks (idempotency_key, channel, created_at) VALUES ($1, $2, NOW()) ON CONFLICT (idempotency_key) DO NOTHING RETURNING *;"
+        "query": "INSERT INTO webhook_locks (idempotency_key, channel) VALUES ($1, $2) ON CONFLICT (idempotency_key) DO NOTHING RETURNING idempotency_key;",
+        "options": {
+          "queryReplacement": "={{ $json.headers['x-idempotency-key'] }},{{ $json.headers['x-source-channel'] }}"
+        }
       },
-      "id": "supabase-idempotency-lock",
-      "name": "Supabase State Lock",
+      "id": "postgres-idempotency-lock",
+      "name": "Postgres State Lock",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2,
-      "position": [480, 300]
+      "position": [480, 300],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.idempotency_key !== undefined }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-first-delivery",
+      "name": "First Delivery?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [710, 300]
+    },
+    {
+      "parameters": {},
+      "id": "first-delivery-branch",
+      "name": "Add WhatsApp / SMS nodes here",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [940, 220]
+    },
+    {
+      "parameters": {},
+      "id": "duplicate-branch",
+      "name": "Duplicate, skip",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [940, 400]
     }
   ],
   "connections": {
-    "MCP Webhook Ingress": {
+    "Webhook Ingress": {
+      "main": [[{ "node": "Postgres State Lock", "type": "main", "index": 0 }]]
+    },
+    "Postgres State Lock": {
+      "main": [[{ "node": "First Delivery?", "type": "main", "index": 0 }]]
+    },
+    "First Delivery?": {
       "main": [
-        [
-          {
-            "node": "Supabase State Lock",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [{ "node": "Add WhatsApp / SMS nodes here", "type": "main", "index": 0 }],
+        [{ "node": "Duplicate, skip", "type": "main", "index": 0 }]
       ]
     }
   }

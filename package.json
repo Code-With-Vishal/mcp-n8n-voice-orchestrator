@@ -1,16 +1,12 @@
 {
   "name": "mcp-n8n-voice-orchestrator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Deterministic Model Context Protocol (MCP) server and n8n webhook bridge for sub-second voice agents (Vapi/Twilio), WhatsApp Cloud API, and Supabase state machines.",
   "main": "dist/index.js",
-  "bin": {
-    "mcp-n8n-init": "./dist/cli.js"
-  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx src/index.ts",
-    "test": "vitest run"
+    "dev": "tsx src/index.ts"
   },
   "keywords": [
     "mcp",
@@ -28,14 +24,31 @@
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.1",
-    "@supabase/supabase-js": "^2.45.0",
     "dotenv": "^16.4.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.1"
+    "typescript": "^5.6.2"
+  },
+  "files": [
+    "dist",
+    "workflows",
+    "state-machine",
+    ".env.example",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code-With-Vishal/mcp-n8n-voice-orchestrator.git"
+  },
+  "homepage": "https://github.com/Code-With-Vishal/mcp-n8n-voice-orchestrator#readme",
+  "bugs": {
+    "url": "https://github.com/Code-With-Vishal/mcp-n8n-voice-orchestrator/issues"
   }
 }
